@@ -14,3 +14,8 @@ Each of the unit subfolders will be populated with homework assignments and my r
   /Unit4/readme.md <- Specifies contents of each file in Unit4
   
 readme.md <-Overview of Repository, Purpose statement, scope of repository, and root organization
+
+## Contact Information
+Any questions about this repository or files in the repository should be sent to:
+
+kdickens(at)smu.edu
