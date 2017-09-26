@@ -1,0 +1,90 @@
+#MSDS 6306 Assignment 4
+Kevin Dickens
+September 23th, 2017
+
+### 1. *FiveThirtyEight Data (30 points): Navigate on GitHub to https://github.com/rudeboybert/fivethirtyeight and read README.md. Seriously, it will include every command you need. Test out some commands on R.*
+
+##### **1a. Install the fivethirtyeight package.**
+
+```{r, echo=TRUE}
+#install.packages("fivethirtyeight")
+```
+
+##### **1b. In the listing of Data sets in package 'fivethirtyeight,' assign the eighteenth data set to an object 'df.'**
+
+```{r, echo=TRUE}
+library("fivethirtyeight")
+df<-college_recent_grads
+```
+##### **1c. Use a more detailed list of the data sets to write out the URL in a comment to the related news story.**
+
+```{r, echo=TRUE}
+vignette("fivethirtyeight",package="fivethirtyeight")
+
+#http://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
+```
+
+##### **1c. Using R command(s), give the dimensions and column names of this data frame.**
+
+```{r, echo=TRUE}
+dim(df)
+colnames(df)
+```
+
+### 2. *Data Summary (30 points): Use your newly assigned data frame for Question 2.*
+
+##### **2a. Write an R command that gives you the column names of the data frame. Right after that, write one that counts the number of columns but not rows. Hint: The number should match one of your numbers in Question 1d for dimensions.**
+
+```{r, echo=TRUE}
+colnames(df)
+ncol(df)
+```
+
+##### **2b. Generate a count of each unique major_category in the data frame. I recommend using libraries to help. I have demonstrated one briefly in live-session. To be clear, this should look like a matrix or data frame containing the major_category and the frequency it occurs in the dataset. Assign it to major_count.**
+
+```{r, echo=TRUE}
+library(plyr)
+major_count<-count(df$major_category)
+major_count
+```
+
+##### **2c. To make things easier to read, enter par(las=2) before your plot to make the text perpendicular to the axis. Make a barplot of major_count. Make sure to label the title with something informative (check the vignette if you need), label the x and y axis, and make it any color other than grey. Assign the major_category labels to their respective bar. Flip the barplot horizontally so that bars extend to the right, not upward. All of these options can be done in a single pass of barplot(). Note: It's okay if it's wider than the preview pane.**
+
+```{r, echo=TRUE}
+par(mar=c(5,15,4,2))
+barplot(major_count$freq, names.arg=(major_count$x),horiz=TRUE, xlab="Frequency", font.lab=2,main="Number of Recent Graduates per Major", col="dodgerblue1", xlim=c(0,30), mgp=c(2,.5,.5),las=1)
+title(ylab="Major", mgp=c(8,1,0), font.lab=2)
+
+
+```
+
+##### **2d. Write the fivethirtyeight data to a csv file. Make sure that it does not have row labels.**
+
+```{r, echo=TRUE}
+write.csv(df, file="fivethirtyeight.csv", row.names=FALSE)
+```
+
+### 3. *Codebook (30 points):*
+
+##### **3a. Start a new repository on GitHub for your SMU MSDS homework. On your local device, make sure there is a directory for Homework at the minimum; you are welcome to add whatever you would like to this repo in addition to your requirements here.**
+
+```r
+browseURL("https://github.com/JanuaryRaven/SMU_MSDS_Homework#smu_msds_homework")
+```
+
+##### **3b. Create a README.md file which explains the purpose of the repository, the topics included, the sources for the material you post, and contact information in case of questions. Remember, the one in the root directory should be general. You are welcome to make short READMEs for each assignment individually in other folders.**
+
+```r
+browseURL("https://github.com/JanuaryRaven/SMU_MSDS_Homework/blob/master/README.md")
+```
+##### **3c. In one (or more) of the nested directories, post your RMarkdown script, HTML file, and data from 'fivethirtyeight.' Make sure that in your README or elsewhere that you credit fivethirtyeight in some way.**
+
+```r
+browseURL("https://github.com/JanuaryRaven/SMU_MSDS_Homework/blob/master/Unit4/readme.md")
+```
+
+##### **3d. In your RMarkdown script, please provide the link to this GitHub so the grader can see it.**
+
+```r
+browseURL("https://github.com/JanuaryRaven/SMU_MSDS_Homework#smu_msds_homework")
+```
