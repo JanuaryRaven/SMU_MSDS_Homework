@@ -155,13 +155,31 @@ str(df)</code></pre>
 <pre class="r"><code>tail(y2015, 10)</code></pre>
 <p>It’s interesting that all of these names have 5 observations each.</p>
 </div>
+<div id="c.-merge-y2016-and-y2015-by-your-name-column-assign-it-to-final.-the-client-only-cares-about-names-that-have-data-for-both-2016-and-2015-there-should-be-no-na-values-in-either-of-your-amount-of-children-rows-after-merging." class="section level5">
+<h5><strong>2c. Merge y2016 and y2015 by your Name column; assign it to final. The client only cares about names that have data for both 2016 and 2015; there should be no NA values in either of your amount of children rows after merging.</strong></h5>
+<pre class="r"><code>final&lt;-merge(y2015, y2016, by=c(&quot;Name&quot;,&quot;Sex&quot;), all=FALSE)</code></pre>
+</div>
+</div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<p><em>Data Summary (30 points): Utilize your data frame object final for this part.</em></p>
+<div id="a.-create-a-new-column-called-total-in-final-that-adds-the-amount-of-children-in-2015-and-2016-together.-in-those-two-years-combined-how-many-people-were-given-popular-names" class="section level5">
+<h5><strong>3a. Create a new column called “Total” in final that adds the amount of children in 2015 and 2016 together. In those two years combined, how many people were given popular names?</strong></h5>
+<pre class="r"><code>final$Totals&lt;-final$Instances.x+final$Instances.y
+final&lt;-final[,c(&quot;Name&quot;,&quot;Sex&quot;,&quot;Totals&quot;)]
+sum(final$Totals)</code></pre>
+</div>
+<div id="b.-sort-the-data-by-total.-what-are-the-top-10-most-popular-names" class="section level5">
+<h5><strong>3b. Sort the data by Total. What are the top 10 most popular names?</strong></h5>
+<pre class="r"><code>final&lt;-final[with(final,order(-Totals)),]</code></pre>
+</div>
 <div id="c.-the-client-is-expecting-a-girl-omit-boys-and-give-the-top-10-most-popular-girls-names.-assign-this-to-object-girl." class="section level5">
-<h5><strong>2c. The client is expecting a girl! Omit boys and give the top 10 most popular girl’s names. Assign this to object girl.</strong></h5>
-<pre class="r"><code>girl&lt;-y2015[-grep(&quot;M&quot;,df$Sex),]
+<h5><strong>3c. The client is expecting a girl! Omit boys and give the top 10 most popular girl’s names. Assign this to object girl.</strong></h5>
+<pre class="r"><code>girl&lt;-final[-grep(&quot;M&quot;,final$Sex),]
 girl&lt;-girl[1:10,]</code></pre>
 </div>
 <div id="d.-write-these-top-10-girl-names-and-their-totals-to-a-csv-file-called-itsagirl.csv.-do-not-include-row-labels.-leave-out-columns-other-than-name-and-total." class="section level5">
-<h5><strong>2d. Write these top 10 girl Names and their Totals to a CSV file called itsagirl.csv. Do not include row labels. Leave out columns other than Name and Total.</strong></h5>
+<h5><strong>3d. Write these top 10 girl Names and their Totals to a CSV file called itsagirl.csv. Do not include row labels. Leave out columns other than Name and Total.</strong></h5>
 <pre class="r"><code>write.csv(girl, &quot;itsagirl.csv&quot;)</code></pre>
 </div>
 </div>

@@ -38,7 +38,6 @@ y2016<-df[-grep("yyy$",df$Name),]
 ```r
 y2015<-read.table("yob2015.txt",sep=",",header=FALSE, col.names=c("Name","Sex","Instances"))
 ```
-
 ##### **2b. Display the last ten rows in the dataframe. Describe something you find interesting about these 10 rows.**
 
 ```r
@@ -46,14 +45,38 @@ tail(y2015, 10)
 ```
 It's interesting that all of these names have 5 observations each.
 
-##### **2c. The client is expecting a girl! Omit boys and give the top 10 most popular girl's names. Assign this to object girl.**
+##### **2c. Merge y2016 and y2015 by your Name column; assign it to final. The client only cares about names that have data for both 2016 and 2015; there should be no NA values in either of your amount of children rows after merging.**
 
 ```r
-girl<-y2015[-grep("M",df$Sex),]
+final<-merge(y2015, y2016, by=c("Name","Sex"), all=FALSE)
+```
+
+### Question 3
+*Data Summary (30 points): Utilize your data frame object final for this part.*
+
+##### **3a. Create a new column called "Total" in final that adds the amount of children in 2015 and 2016 together. In those two years combined, how many people were given popular names?**
+
+```r
+final$Totals<-final$Instances.x+final$Instances.y
+final<-final[,c("Name","Sex","Totals")]
+sum(final$Totals)
+```
+
+##### **3b. Sort the data by Total. What are the top 10 most popular names?**
+
+```r
+final<-final[with(final,order(-Totals)),]
+```
+
+
+##### **3c. The client is expecting a girl! Omit boys and give the top 10 most popular girl's names. Assign this to object girl.**
+
+```r
+girl<-final[-grep("M",final$Sex),]
 girl<-girl[1:10,]
 ```
 
-##### **2d. Write these top 10 girl Names and their Totals to a CSV file called itsagirl.csv. Do not include row labels. Leave out columns other than Name and Total.**
+##### **3d. Write these top 10 girl Names and their Totals to a CSV file called itsagirl.csv. Do not include row labels. Leave out columns other than Name and Total.**
 
 ```r
 write.csv(girl, "itsagirl.csv")
